@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ESR DEVELOPERS | Premium Real Estate Open Plots & Layouts</title>
+  <meta name="description" content="ESR Developers - DTCP & RERA Approved Premium Open Plot Layouts. Founded by Chairman Pinamareddy Eshwarudu, Director Addala Srinu, MD Pinamareddy Durga Nagendra. Book 360° virtual tour and pre-book plots live!">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Leaflet CSS for Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body class="bg-dark text-light">
+
+  <!-- Top Announcement Bar -->
+  <div class="top-bar">
+    <div class="container d-flex justify-between align-center py-2 text-sm">
+      <div class="d-flex align-center gap-4">
+        <span><i class="fa-solid fa-certificate text-gold me-1"></i> DTCP & RERA Approved Layouts</span>
+        <span class="d-none d-md-inline"><i class="fa-solid fa-shield-halved text-gold me-1"></i> 100% Clear Title & Immediate Registration</span>
+      </div>
+      <div class="d-flex align-center gap-3">
+        <!-- Live Auto Sync Badge (Updates every 30s) -->
+        <div class="sync-badge" id="syncBadgeContainer" title="Plot inventory updates automatically every 30 seconds">
+          <div class="pulse-dot"></div>
+          <span class="sync-text">LIVE SYNC (<span id="syncCountdown">30</span>s)</span>
+          <button id="manualRefreshBtn" class="refresh-icon-btn" title="Refresh Live Data Now">
+            <i class="fa-solid fa-rotate-right" id="refreshSpinIcon"></i>
+          </button>
+        </div>
+        <a href="tel:+919876543210" class="top-link"><i class="fa-solid fa-phone text-gold"></i> +91 98765 43210</a>
+        <a href="https://wa.me/919876543210?text=Hi%20ESR%20Developers,%20I%20want%20to%20inquire%20about%20plot%20availability" target="_blank" class="top-link whatsapp-top"><i class="fa-brands fa-whatsapp text-success"></i> Owner Chat</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar sticky-top navbar-glass">
+    <div class="container navbar-content">
+      <a href="#" class="brand-logo">
+        <div class="logo-icon"><i class="fa-solid fa-gem"></i></div>
+        <div class="logo-text">
+          <span class="brand-title">ESR <span class="text-gold">DEVELOPERS</span></span>
+          <span class="brand-sub">REAL ESTATE & INFRA</span>
+        </div>
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="#hero" class="nav-link active">Home</a>
+        <a href="#leadership" class="nav-link">Leadership</a>
+        <a href="#plots" class="nav-link">Plots & Prices</a>
+        <a href="#masterplan" class="nav-link">Master Layout</a>
+        <a href="#virtual360" class="nav-link"><span class="badge-360">360°</span> Virtual Tour</a>
+        <a href="#location" class="nav-link">Google Maps</a>
+        <a href="#gallery" class="nav-link">Photos</a>
+        <a href="#contact" class="nav-link">Contact Owner</a>
+      </div>
+
+      <div class="nav-cta d-flex align-center gap-2">
+        <button class="btn btn-gold btn-glow animate-pulse" id="navPreBookBtn">
+          <i class="fa-solid fa-bolt me-1"></i> Pre-Book Plot
+        </button>
+        <button class="hamburger-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero" class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-bg-slider">
+      <div class="hero-slide active" style="background-image: url('/images/plots/entrance.jpg');"></div>
+      <div class="hero-slide" style="background-image: url('/images/plots/plot_site1.jpg');"></div>
+    </div>
+
+    <div class="container hero-container">
+      <div class="hero-content">
+        <div class="gold-pill-tag fade-in">
+          <i class="fa-solid fa-crown me-2"></i> WELCOME TO ESR DEVELOPERS
+        </div>
+        <h1 class="hero-title fade-in-up">
+          Build Your Future On <span class="text-gradient-gold">Prime Real Estate Plots</span>
+        </h1>
+        <p class="hero-desc fade-in-up delay-1">
+          Explore DTCP & RERA approved open residential plots. Transparent pricing per square yard, live plot availability auto-updated every 30 seconds, 360° virtual site tours, and instant online pre-booking directly with the site owners.
+        </p>
+
+        <!-- Live Stats Strip -->
+        <div class="hero-stats-grid fade-in-up delay-2">
+          <div class="stat-card">
+            <div class="stat-number text-gold" id="totalPlotsCount">60</div>
+            <div class="stat-label">Total Gated Plots</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number text-success" id="availPlotsCount">42</div>
+            <div class="stat-label">Available Now</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number text-warning" id="bookedPlotsCount">12</div>
+            <div class="stat-label">Pre-Booked</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number text-gold-light">₹12,500</div>
+            <div class="stat-label">Starts / Sq. Yard</div>
+          </div>
+        </div>
+
+        <div class="hero-actions fade-in-up delay-3">
+          <a href="#plots" class="btn btn-gold btn-lg">
+            <i class="fa-solid fa-map-location-dot me-2"></i> View Available Plots & Prices
+          </a>
+          <a href="#virtual360" class="btn btn-outline-light btn-lg">
+            <i class="fa-solid fa-vr-cardboard me-2"></i> Explore 360° Plot View
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Real-Time Auto Refresh Ticker Banner -->
+  <div class="auto-ticker-bar">
+    <div class="container d-flex align-center justify-between flex-wrap gap-2">
+      <div class="d-flex align-center gap-3">
+        <span class="ticker-live-dot"></span>
+        <span class="ticker-title">REAL-TIME INVENTORY SYSTEM:</span>
+        <span class="ticker-text" id="liveTickerMsg">Checking plot booking status across Phase 1 & Phase 2 layouts...</span>
+      </div>
+      <div class="timer-progress-wrap d-flex align-center gap-2">
+        <span class="text-xs text-muted">Next Auto-Refresh:</span>
+        <div class="timer-bar"><div class="timer-fill" id="timerProgressFill"></div></div>
+        <span class="timer-num" id="tickerCountdown">30s</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leadership Section (Chairman, Director, MD) -->
+  <section id="leadership" class="section-padding bg-dark-secondary position-relative">
+    <div class="container">
+      <div class="section-header text-center">
+        <div class="section-subtitle"><i class="fa-solid fa-user-shield me-2"></i> VISIONARY LEADERSHIP</div>
+        <h2 class="section-title">Meet The Pillars Of <span class="text-gradient-gold">ESR DEVELOPERS</span></h2>
+        <p class="section-desc">
+          Guided by decades of expertise, unwavering commitment to customer trust, legal clarity, and rapid land value appreciation.
+        </p>
+      </div>
+
+      <div class="leadership-grid">
+        <!-- Chairman -->
+        <div class="leader-card glass-card">
+          <div class="leader-img-wrapper">
+            <img src="/images/leadership/eshwarudu.jpg" alt="Chairman Pinamareddy Eshwarudu" class="leader-img">
+            <div class="leader-badge chairman-badge">CHAIRMAN</div>
+          </div>
+          <div class="leader-info">
+            <h3 class="leader-name">PINAMAREDDY ESHWARUDU</h3>
+            <p class="leader-role text-gold">Honorable Chairman - ESR Developers</p>
+            <p class="leader-bio">
+              With over 25+ years of visionary leadership in real estate development, Pinamareddy Eshwarudu has steered ESR Developers to become one of the most trusted names in gated community open plots, ensuring 100% legal clarity, spot registration, and high ROI layout developments.
+            </p>
+            <div class="leader-actions">
+              <a href="tel:+919876543210" class="btn btn-sm btn-outline-gold"><i class="fa-solid fa-phone me-1"></i> Direct Line</a>
+              <a href="https://wa.me/919876543210?text=Hello%20Chairman%20Pinamareddy%20Eshwarudu%20Garu,%20I%20am%20interested%20in%20ESR%20Developers%20plots" target="_blank" class="btn btn-sm btn-whatsapp"><i class="fa-brands fa-whatsapp me-1"></i> WhatsApp</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Director -->
+        <div class="leader-card glass-card">
+          <div class="leader-img-wrapper">
+            <img src="/images/leadership/srinu.jpg" alt="Director Addala Srinu" class="leader-img">
+            <div class="leader-badge director-badge">DIRECTOR</div>
+          </div>
+          <div class="leader-info">
+            <h3 class="leader-name">ADDALA SRINU</h3>
+            <p class="leader-role text-gold">Executive Director - ESR Developers</p>
+            <p class="leader-bio">
+              Addala Srinu oversees strategic land acquisition, infrastructure planning, blacktop road execution, and customer relation operations. His dedication ensures every venture meets top-tier DTCP/RERA standards with underground utilities and lush greenery.
+            </p>
+            <div class="leader-actions">
+              <a href="tel:+919876543211" class="btn btn-sm btn-outline-gold"><i class="fa-solid fa-phone me-1"></i> Direct Line</a>
+              <a href="https://wa.me/919876543211?text=Hello%20Director%20Addala%20Srinu%20Garu,%20I%20want%20to%20know%20more%20about%20ESR%20Plots" target="_blank" class="btn btn-sm btn-whatsapp"><i class="fa-brands fa-whatsapp me-1"></i> WhatsApp</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Managing Director -->
+        <div class="leader-card glass-card">
+          <div class="leader-img-wrapper">
+            <img src="/images/leadership/nagendra.jpg" alt="Managing Director Pinamareddy Durga Nagendra" class="leader-img">
+            <div class="leader-badge md-badge">MANAGING DIRECTOR</div>
+          </div>
+          <div class="leader-info">
+            <h3 class="leader-name">PINAMAREDDY DURGA NAGENDRA</h3>
+            <p class="leader-role text-gold">Managing Director - ESR Developers</p>
+            <p class="leader-bio">
+              Pinamareddy Durga Nagendra drives modern technology integration, digital customer booking, 360° virtual site inspections, and rapid site development. He ensures seamless pre-booking transparency and post-purchase customer satisfaction.
+            </p>
+            <div class="leader-actions">
+              <a href="tel:+919876543212" class="btn btn-sm btn-outline-gold"><i class="fa-solid fa-phone me-1"></i> Direct Line</a>
+              <a href="https://wa.me/919876543212?text=Hello%20MD%20Pinamareddy%20Durga%20Nagendra%20Garu,%20I%20would%20like%20to%20book%20a%20site%20visit" target="_blank" class="btn btn-sm btn-whatsapp"><i class="fa-brands fa-whatsapp me-1"></i> WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Plots & Pricing Section -->
+  <section id="plots" class="section-padding">
+    <div class="container">
+      <div class="section-header text-center">
+        <div class="section-subtitle"><i class="fa-solid fa-border-all me-2"></i> LIVE INVENTORY & PRICING</div>
+        <h2 class="section-title">Explore Open Plots & <span class="text-gradient-gold">Per Square Yard Pricing</span></h2>
+        <p class="section-desc">
+          Filter by availability, facing direction, or square yard sizes. Real-time plot status updates automatically every 30 seconds.
+        </p>
+      </div>
+
+      <!-- Controls & Filter Toolbar -->
+      <div class="plot-filter-card glass-card mb-4">
+        <div class="filter-row">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="plotSearchInput" placeholder="Search by Plot # (e.g. 104, 201)...">
+          </div>
+
+          <div class="filter-group">
+            <label><i class="fa-solid fa-filter text-gold me-1"></i> Status:</label>
+            <select id="statusFilter" class="filter-select">
+              <option value="all">All Plot Statuses</option>
+              <option value="available">🟢 Available Only</option>
+              <option value="booked">🟡 Pre-Booked</option>
+              <option value="sold">🔴 Sold Out</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label><i class="fa-solid fa-compass text-gold me-1"></i> Facing:</label>
+            <select id="facingFilter" class="filter-select">
+              <option value="all">All Facings</option>
+              <option value="East">East Facing</option>
+              <option value="West">West Facing</option>
+              <option value="North-East">North-East Corner</option>
+              <option value="South-East">South-East Corner</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label><i class="fa-solid fa-ruler-combined text-gold me-1"></i> Size (Sq. Yds):</label>
+            <select id="sizeFilter" class="filter-select">
+              <option value="all">All Sizes</option>
+              <option value="150-200">150 - 200 Sq. Yds</option>
+              <option value="201-300">201 - 300 Sq. Yds</option>
+              <option value="301+">301+ Sq. Yds</option>
+            </select>
+          </div>
+
+          <div class="view-toggle">
+            <button class="toggle-btn active" id="viewGridBtn" title="Grid View"><i class="fa-solid fa-border-all"></i></button>
+            <button class="toggle-btn" id="viewTableBtn" title="Table View"><i class="fa-solid fa-list-ul"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Plot Grid Display -->
+      <div class="plots-grid" id="plotsGrid">
+        <!-- Dynamically injected via JS -->
+      </div>
+
+      <!-- Plot Table View (Hidden by default) -->
+      <div class="plots-table-wrapper d-none glass-card" id="plotsTableContainer">
+        <table class="plots-table">
+          <thead>
+            <tr>
+              <th>Plot #</th>
+              <th>Phase & Block</th>
+              <th>Dimensions</th>
+              <th>Area (Sq. Yards)</th>
+              <th>Facing</th>
+              <th>Price / Sq. Yd</th>
+              <th>Total Calculated Price</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="plotsTableBody">
+            <!-- Dynamically injected via JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Master Layout Section -->
+  <section id="masterplan" class="section-padding bg-dark-secondary">
+    <div class="container">
+      <div class="section-header text-center">
+        <div class="section-subtitle"><i class="fa-solid fa-map me-2"></i> ARCHITECTURAL MASTER PLAN</div>
+        <h2 class="section-title">Interactive <span class="text-gradient-gold">Venture Layout Map</span></h2>
+        <p class="section-desc">
+          Click on any plot block in the interactive diagram to instantly inspect dimensions, price per sq. yard, total price, and reserve your plot online.
+        </p>
+      </div>
+
+      <div class="masterplan-card glass-card">
+        <div class="masterplan-header d-flex justify-between align-center flex-wrap gap-2">
+          <div class="d-flex align-center gap-3">
+            <span class="venture-badge"><i class="fa-solid fa-location-dot me-1"></i> Phase 1: Royal Palms Enclave</span>
+            <span class="badge badge-success">40ft & 60ft Asphalt Roads</span>
+          </div>
+          <div class="legend-strip d-flex align-center gap-3 text-xs">
+            <span class="legend-item"><span class="legend-color bg-success"></span> Available</span>
+            <span class="legend-item"><span class="legend-color bg-warning"></span> Pre-Booked</span>
+            <span class="legend-item"><span class="legend-color bg-danger"></span> Sold Out</span>
+            <span class="legend-item"><span class="legend-color bg-gold"></span> Park / Green Belt</span>
+          </div>
+        </div>
+
+        <div class="masterplan-view-container">
+          <div class="masterplan-img-wrap">
+            <img src="/images/plots/master_plan.jpg" alt="ESR Master Layout Plan" class="masterplan-img" id="masterPlanImage">
+            <!-- Overlay hotspot grid canvas / SVG interactive points -->
+            <div class="masterplan-interactive-overlay" id="masterPlanOverlay">
+              <!-- Dynamically generated clickable plot hotspots -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 360 Degree Virtual Plot Tour Section -->
+  <section id="virtual360" class="section-padding">
+    <div class="container">
+      <div class="section-header text-center">
+        <div class="section-subtitle"><i class="fa-solid fa-vr-cardboard me-2"></i> IMMERSIVE 360° EXPERIENCE</div>
+        <h2 class="section-title">Walk Through Plots In <span class="text-gradient-gold">360° Virtual View</span></h2>
+        <p class="section-desc">
+          Drag, rotate, and zoom around the plot site in real-time. Inspect 40ft blacktop roads, boundary demarcations, and surrounding green landscape from home.
+        </p>
+      </div>
+
+      <div class="viewer-360-card glass-card">
+        <div class="viewer-360-toolbar">
+          <div class="d-flex align-center gap-2">
+            <span class="badge badge-gold"><i class="fa-solid fa-eye me-1"></i> Interactive 360° VR View</span>
+            <span class="text-xs text-muted d-none d-md-inline">Click and drag to look 360 degrees around</span>
+          </div>
+          
+          <div class="d-flex align-center gap-2">
+            <button class="btn btn-sm btn-dark" id="btn360Spot1"><i class="fa-solid fa-archway me-1"></i> Main Gate Entrance</button>
+            <button class="btn btn-sm btn-gold" id="btn360Spot2"><i class="fa-solid fa-road me-1"></i> 40ft Central Road</button>
+            <button class="btn btn-sm btn-dark" id="btn360Spot3"><i class="fa-solid fa-tree me-1"></i> Green Park Area</button>
+            <button class="btn btn-sm btn-dark-icon" id="fullscreen360Btn" title="Full Screen"><i class="fa-solid fa-expand"></i></button>
+          </div>
+        </div>
+
+        <div class="canvas-360-container" id="container360">
+          <!-- WebGL Three.js 360 Panorama Canvas will render here -->
+          <div class="vr-overlay-instruction" id="vrHelpOverlay">
+            <div class="vr-hand-icon"><i class="fa-solid fa-hand-pointer animate-bounce"></i></div>
+            <span>Drag mouse or swipe screen to rotate 360°</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Google Maps Location Section -->
+  <section id="location" class="section-padding bg-dark-secondary">
+    <div class="container">
+      <div class="section-header text-center">
+        <div class="section-subtitle"><i class="fa-solid fa-map-pin me-2"></i> STRATEGIC LOCATION</div>
+        <h2 class="section-title">Google Maps & <span class="text-gradient-gold">Venture Location</span></h2>
+        <p class="section-desc">
+          Situated right along major growth corridors with high connectivity to national highways, educational hubs, and industrial zones.
+        </p>
+      </div>
+
+      <div class="location-grid">
+        <div class="map-card glass-card">
+          <div class="map-header d-flex justify-between align-center py-2 px-3">
+            <div class="d-flex align-center gap-2">
+              <i class="fa-solid fa-location-crosshairs text-gold"></i>
+              <span class="fw-bold">ESR Developers - Venture Site Coordinates</span>
+            </div>
+            <a href="https://maps.google.com/?q=16.5062,80.6480" target="_blank" class="btn btn-xs btn-gold">
+              <i class="fa-solid fa-diamond-turn-right me-1"></i> Open in Google Maps
+            </a>
+          </div>
+          <div id="leafletMap" class="map-frame"></div>
+        </div>
+
+        <div class="location-highlights glass-card p-4">
+          <h3 class="mb-3 text-gold"><i class="fa-solid fa-route me-2"></i> Nearby Key Connectivity & Distance</h3>
+          <ul class="connectivity-list">
+            <li>
+              <div class="conn-icon"><i class="fa-solid fa-road"></i></div>
+              <div>
+                <strong>National Highway (NH-16):</strong>
+                <p>Just 3 Minutes Drive (1.5 km)</p>
+              </div>
+            </li>
+            <li>
+              <div class="conn-icon"><i class="fa-solid fa-train"></i></div>
+              <div>
+                <strong>Railway Station & Bus Terminal:</strong>
+                <p>12 Minutes Drive (6 km)</p>
+              </div>
+            </li>
+            <li>
+              <div class="conn-icon"><i class="fa-solid fa-school"></i></div>
+              <div>
+                <strong>International Schools & Colleges:</strong>
+                <p>5 Minutes Drive (2 km radius)</p>
+              </div>
+            </li>
+            <li>
+              <div class="conn-icon"><i class="fa-solid fa-hospital"></i></div>
+              <div>
+                <strong>Super Specialty Hospitals:</strong>
+                <p>10 Minutes Drive (4.5 km)</p>
+              </div>
+            </li>
+            <li>
+              <div class="conn-icon"><i class="fa-solid fa-plane"></i></div>
+              <div>
+                <strong>International Airport Corridor:</strong>
+                <p>25 Minutes Drive via Expressway</p>
+              </div>
+            </li>
+          </ul>
+
+          <div class="location-cta mt-4 p-3 bg-dark rounded border-gold">
+            <div class="fw-bold text-light mb-1"><i class="fa-solid fa-car me-1 text-gold"></i> Free Site Visit Cab Facility</div>
+            <p class="text-xs text-muted mb-2">We arrange complimentary luxury AC car pick-up and drop for plot buyers.</p>
+            <button class="btn btn-sm btn-gold w-100" id="bookCabBtn">
+              <i class="fa-solid fa-car-side me-1"></i> Schedule Free Site Visit Pickup
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Photo Gallery Section -->
+  <section id="gallery" class="section-padding">
+    <div class="container">
+      <div class="section-header text-center">
+        <div class="section-subtitle"><i class="fa-solid fa-images me-2"></i> ON-SITE DEVELOPMENT</div>
+        <h2 class="section-title">Actual Site <span class="text-gradient-gold">Photos & Infrastructure</span></h2>
+        <p class="section-desc">
+          High resolution photos of grand entrance arch, 40ft blacktop roads, underground drainage, electricity poles, and green parks.
+        </p>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="gallery-card glass-card" data-img="/images/plots/entrance.jpg" data-caption="Grand Venture Entrance Archway with Security Gate">
+          <img src="/images/plots/entrance.jpg" alt="Grand Entrance Arch">
+          <div class="gallery-overlay">
+            <span class="gallery-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+            <span class="gallery-title">Grand Entrance Archway</span>
+          </div>
+        </div>
+
+        <div class="gallery-card glass-card" data-img="/images/plots/plot_site1.jpg" data-caption="Wide 40ft Blacktop Roads with Demarcation Stones & Streetlights">
+          <img src="/images/plots/plot_site1.jpg" alt="Plot Layout Roads">
+          <div class="gallery-overlay">
+            <span class="gallery-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+            <span class="gallery-title">40ft Blacktop Asphalt Roads</span>
+          </div>
+        </div>
+
+        <div class="gallery-card glass-card" data-img="/images/plots/master_plan.jpg" data-caption="Approved DTCP & RERA Master Layout Blueprint Plan">
+          <img src="/images/plots/master_plan.jpg" alt="Approved Layout Plan">
+          <div class="gallery-overlay">
+            <span class="gallery-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+            <span class="gallery-title">DTCP Approved Layout Plan</span>
+          </div>
+        </div>
+
+        <div class="gallery-card glass-card" data-img="/images/plots/panorama_360.jpg" data-caption="360 Panoramic Aerial View of Gated Community Layout">
+          <img src="/images/plots/panorama_360.jpg" alt="Panoramic Site View">
+          <div class="gallery-overlay">
+            <span class="gallery-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+            <span class="gallery-title">360° Scenic Site Overview</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Site Owner Section -->
+  <section id="contact" class="section-padding bg-dark-secondary">
+    <div class="container">
+      <div class="section-header text-center">
+        <div class="section-subtitle"><i class="fa-solid fa-headset me-2"></i> DIRECT SITE OWNER CONTACT</div>
+        <h2 class="section-title">Talk Directly To <span class="text-gradient-gold">ESR Management</span></h2>
+        <p class="section-desc">
+          No middlemen or brokerage fees. Speak directly with Chairman Pinamareddy Eshwarudu, Director Addala Srinu, or MD Pinamareddy Durga Nagendra.
+        </p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-card glass-card p-4">
+          <h3 class="text-gold mb-3"><i class="fa-solid fa-building-user me-2"></i> ESR Developers Head Office</h3>
+          
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div>
+              <strong>Headquarters Office Address:</strong>
+              <p>ESR Developers Towers, Main Commercial Highway Road, Vijayawada - Guntur Highway Corridor, Andhra Pradesh, India.</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+            <div>
+              <strong>Direct Phone Lines:</strong>
+              <p>Chairman: +91 98765 43210</p>
+              <p>Director: +91 98765 43211</p>
+              <p>Managing Director: +91 98765 43212</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+            <div>
+              <strong>Email Inquiries:</strong>
+              <p>info@esrdevelopers.com | sales@esrdevelopers.com</p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fa-solid fa-clock"></i></div>
+            <div>
+              <strong>Working Hours:</strong>
+              <p>Monday - Sunday: 8:00 AM to 8:00 PM (Site Visits open 7 days a week)</p>
+            </div>
+          </div>
+
+          <div class="owner-direct-buttons d-flex gap-2 mt-4">
+            <a href="https://wa.me/919876543210?text=Hello%20ESR%20Developers%20Owner,%20I%20want%20to%20discuss%20buying%20a%20plot" target="_blank" class="btn btn-whatsapp w-50">
+              <i class="fa-brands fa-whatsapp me-2"></i> WhatsApp Owner
+            </a>
+            <a href="tel:+919876543210" class="btn btn-gold w-50">
+              <i class="fa-solid fa-phone me-2"></i> Call Site Owner
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-form-card glass-card p-4">
+          <h3 class="text-gold mb-3"><i class="fa-solid fa-paper-plane me-2"></i> Send Instant Plot Inquiry</h3>
+          <form id="contactOwnerForm">
+            <div class="form-group mb-3">
+              <label class="form-label">Full Name *</label>
+              <input type="text" id="contactName" class="form-control" placeholder="Enter your name" required>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group mb-3">
+                <label class="form-label">Phone Number *</label>
+                <input type="tel" id="contactPhone" class="form-control" placeholder="+91 9876543210" required>
+              </div>
+              <div class="form-group mb-3">
+                <label class="form-label">Email Address</label>
+                <input type="email" id="contactEmail" class="form-control" placeholder="name@gmail.com">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group mb-3">
+                <label class="form-label">Preferred Plot Size</label>
+                <select id="contactPlotSize" class="form-control">
+                  <option value="200 Sq. Yds">200 Sq. Yards (Standard Plot)</option>
+                  <option value="267 Sq. Yds">267 Sq. Yards (Corner Plot)</option>
+                  <option value="300 Sq. Yds">300 Sq. Yards (Luxury Villa Plot)</option>
+                  <option value="500+ Sq. Yds">500+ Sq. Yards (Commercial Plot)</option>
+                </select>
+              </div>
+              <div class="form-group mb-3">
+                <label class="form-label">Facing Preference</label>
+                <select id="contactFacing" class="form-control">
+                  <option value="East Facing">East Facing</option>
+                  <option value="West Facing">West Facing</option>
+                  <option value="North-East Corner">North-East Corner</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group mb-3">
+              <label class="form-label">Message or Specific Plot Inquiry</label>
+              <textarea id="contactMessage" class="form-control" rows="3" placeholder="Tell us your questions or schedule a site visit time..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-gold btn-lg w-100">
+              <i class="fa-solid fa-paper-plane me-2"></i> Submit Inquiry To Owners
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pre-Booking & Ordering Plot Modal -->
+  <div class="modal-backdrop" id="bookingModal">
+    <div class="modal-content glass-card">
+      <div class="modal-header d-flex justify-between align-center">
+        <div class="d-flex align-center gap-2">
+          <i class="fa-solid fa-bolt text-gold fs-4"></i>
+          <div>
+            <h3 class="modal-title mb-0">ONLINE PLOT PRE-BOOKING</h3>
+            <span class="text-xs text-muted">Reserve Plot Instantly with ESR Developers</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="closeBookingModal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="modal-body p-4">
+        <!-- Selected Plot Details Box -->
+        <div class="selected-plot-summary-box mb-4 p-3 bg-dark border-gold rounded">
+          <div class="d-flex justify-between align-center mb-2">
+            <span class="fw-bold text-gold fs-5" id="modalPlotNoTitle">Plot #104</span>
+            <span class="badge badge-success" id="modalPlotFacing">East Facing</span>
+          </div>
+          <div class="plot-summary-grid text-sm">
+            <div><span class="text-muted">Plot Area:</span> <strong id="modalPlotArea">200 Sq. Yds</strong></div>
+            <div><span class="text-muted">Price / Sq. Yd:</span> <strong class="text-gold" id="modalPricePerYd">₹12,500</strong></div>
+            <div><span class="text-muted">Total Calculated Price:</span> <strong class="text-gradient-gold" id="modalTotalCost">₹25,00,000</strong></div>
+            <div><span class="text-muted">Pre-Booking Token:</span> <strong class="text-success" id="modalTokenAmt">₹50,000</strong></div>
+          </div>
+        </div>
+
+        <form id="preBookingForm">
+          <input type="hidden" id="bookingPlotId" value="">
+          
+          <div class="form-group mb-3">
+            <label class="form-label">Buyer Full Name *</label>
+            <input type="text" id="buyerName" class="form-control" placeholder="Full name as per Aadhaar / ID" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group mb-3">
+              <label class="form-label">Mobile Number (WhatsApp) *</label>
+              <input type="tel" id="buyerPhone" class="form-control" placeholder="+91 98765 43210" required>
+            </div>
+            <div class="form-group mb-3">
+              <label class="form-label">Email Address *</label>
+              <input type="email" id="buyerEmail" class="form-control" placeholder="buyer@example.com" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group mb-3">
+              <label class="form-label">City / Native Place *</label>
+              <input type="text" id="buyerCity" class="form-control" placeholder="e.g. Vijayawada / Hyderabad" required>
+            </div>
+            <div class="form-group mb-3">
+              <label class="form-label">Token Payment Option</label>
+              <select id="buyerPaymentMode" class="form-control">
+                <option value="UPI / PhonePe / GPay">Online UPI / GPay / PhonePe</option>
+                <option value="Net Banking / NEFT">Bank NEFT / RTGS Transfer</option>
+                <option value="Cheque / Cash at Site Office">Direct Site Office Visit Payment</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group mb-4">
+            <label class="form-label">Requested Registration Date</label>
+            <input type="date" id="buyerRegistrationDate" class="form-control">
+          </div>
+
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-outline-light w-50" id="cancelBookingBtn">Cancel</button>
+            <button type="submit" class="btn btn-gold btn-glow w-50">
+              <i class="fa-solid fa-check-circle me-1"></i> Confirm Pre-Booking
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Success Receipt Modal -->
+  <div class="modal-backdrop" id="receiptModal">
+    <div class="modal-content glass-card receipt-modal-box">
+      <div class="receipt-header text-center p-4 bg-gold-dark text-light rounded-top">
+        <div class="receipt-check-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <h2 class="mb-1 text-gold">PLOT PRE-BOOKING CONFIRMED!</h2>
+        <p class="text-xs mb-0">ESR DEVELOPERS - OFFICIAL RESERVATION RECEIPT</p>
+      </div>
+
+      <div class="modal-body p-4" id="receiptPrintArea">
+        <div class="receipt-meta d-flex justify-between py-2 border-bottom text-xs text-muted mb-3">
+          <span>Receipt No: <strong id="receiptId">ESR-BK-2026-9481</strong></span>
+          <span>Date: <strong id="receiptDate">29 Sep 2026</strong></span>
+        </div>
+
+        <div class="receipt-plot-details p-3 bg-dark rounded border-gold mb-3">
+          <h4 class="text-gold mb-2" id="receiptPlotTitle">Plot #104 (Royal Enclave)</h4>
+          <div class="receipt-grid text-sm">
+            <div><span>Plot Size:</span> <strong id="receiptPlotArea">200 Sq. Yards</strong></div>
+            <div><span>Facing:</span> <strong id="receiptFacing">East Facing</strong></div>
+            <div><span>Rate / Sq. Yd:</span> <strong id="receiptPriceYd">₹12,500</strong></div>
+            <div><span>Total Plot Value:</span> <strong id="receiptTotalVal">₹25,00,000</strong></div>
+            <div><span>Advance Token Paid:</span> <strong class="text-success" id="receiptTokenPaid">₹50,000</strong></div>
+            <div><span>Balance Amount:</span> <strong class="text-warning" id="receiptBalance">₹24,50,000</strong></div>
+          </div>
+        </div>
+
+        <div class="receipt-buyer-details mb-3 text-sm">
+          <p class="mb-1"><strong>Buyer Name:</strong> <span id="receiptBuyerName">John Doe</span></p>
+          <p class="mb-1"><strong>Phone Number:</strong> <span id="receiptBuyerPhone">+91 9876543210</span></p>
+          <p class="mb-1"><strong>Status:</strong> <span class="badge badge-warning">Pre-Booked (Held for 7 Days)</span></p>
+        </div>
+
+        <p class="text-xs text-muted text-center italic mb-4">
+          * A copy of this reservation receipt has been logged. Our Managing Director Pinamareddy Durga Nagendra or team will call you within 15 minutes.
+        </p>
+
+        <div class="d-flex gap-2">
+          <button class="btn btn-outline-gold w-50" id="printReceiptBtn"><i class="fa-solid fa-print me-1"></i> Print Receipt</button>
+          <a href="#" id="receiptWhatsAppBtn" target="_blank" class="btn btn-whatsapp w-50"><i class="fa-brands fa-whatsapp me-1"></i> Send to Owner</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image Lightbox Modal -->
+  <div class="modal-backdrop" id="imageLightboxModal">
+    <div class="lightbox-content">
+      <button class="modal-close-btn lightbox-close" id="closeLightboxBtn"><i class="fa-solid fa-xmark"></i></button>
+      <img src="" id="lightboxImg" alt="Enlarged Plot Photo">
+      <div class="lightbox-caption text-center p-2 text-gold fw-bold" id="lightboxCaption">Photo Caption</div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer bg-dark-deep py-5 border-top-gold">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="brand-logo mb-3">
+            <div class="logo-icon"><i class="fa-solid fa-gem"></i></div>
+            <div class="logo-text">
+              <span class="brand-title">ESR <span class="text-gold">DEVELOPERS</span></span>
+              <span class="brand-sub">REAL ESTATE & INFRA</span>
+            </div>
+          </div>
+          <p class="text-sm text-muted mb-3">
+            Premier real estate developers in open plot layouts, DTCP & RERA approved gated communities, ensuring 100% legal clarity and rapid appreciation.
+          </p>
+          <div class="footer-approvals text-xs text-gold">
+            <div><i class="fa-solid fa-check me-1"></i> DTCP Approved: LP No. 104/2025/AP</div>
+            <div><i class="fa-solid fa-check me-1"></i> RERA Registered: P03260012948</div>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-title">Executive Management</h4>
+          <ul class="footer-links">
+            <li><strong>Chairman:</strong> Pinamareddy Eshwarudu</li>
+            <li><strong>Director:</strong> Addala Srinu</li>
+            <li><strong>Managing Director:</strong> Pinamareddy Durga Nagendra</li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-title">Quick Facilities</h4>
+          <ul class="footer-links">
+            <li><a href="#plots">See Open Plots & Pricing</a></li>
+            <li><a href="#plots">Pre-Book Plot Online</a></li>
+            <li><a href="#virtual360">360° Virtual Site Tour</a></li>
+            <li><a href="#location">Google Maps Location</a></li>
+            <li><a href="#contact">Contact Site Owner Direct</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 class="footer-title">Site Office Contact</h4>
+          <p class="text-sm text-muted mb-2"><i class="fa-solid fa-location-dot me-2 text-gold"></i> ESR Developers Towers, Vijayawada - Guntur Highway Corridor, AP</p>
+          <p class="text-sm text-muted mb-2"><i class="fa-solid fa-phone me-2 text-gold"></i> +91 98765 43210 / 11 / 12</p>
+          <p class="text-sm text-muted mb-3"><i class="fa-solid fa-envelope me-2 text-gold"></i> info@esrdevelopers.com</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom border-top border-dark mt-4 pt-3 d-flex justify-between align-center flex-wrap gap-2 text-xs text-muted">
+        <div>© 2026 ESR DEVELOPERS. All Rights Reserved. DTCP & RERA Approved Layout.</div>
+        <div class="d-flex align-center gap-2">
+          <span>Auto-Updated Every 30 Seconds</span>
+          <span class="pulse-dot"></span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Leaflet JS for Maps -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

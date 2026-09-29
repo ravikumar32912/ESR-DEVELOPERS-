@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ravikumar32912.github.io/ESR-DEVELOPERS-/sitemap.xml
